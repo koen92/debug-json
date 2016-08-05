@@ -3,6 +3,7 @@
 node('linux') {
     catchError {
         stage 'Prepare'
+        sh 'env | sort'
         env.PATH = "${tool 'Node-4.4.3'}/bin:${env.PATH}"
 
         stage 'Show Node & NPM version'
