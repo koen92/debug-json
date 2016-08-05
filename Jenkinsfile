@@ -25,5 +25,5 @@ node('linux') {
         sh 'npm run build'
     }
     stage 'Notify'
-    slackSend color: currentBuild.result != 'FAILURE' ? 'good' : 'danger', message: "(<${env.BUILD_URL}|Build for ${env.JOB_NAME} by ${env.CHANGE_AUTHOR} has ${currentBuild.result != 'FAILURE' ? 'succeeded' : 'failed'}>)"
+    slackSend color: currentBuild.result != 'FAILURE' ? 'good' : 'danger', message: "<${env.BUILD_URL}|Build for ${env.JOB_NAME} by ${env.BUILD_USER_ID} has ${currentBuild.result != 'FAILURE' ? 'succeeded' : 'failed'}>"
 }
