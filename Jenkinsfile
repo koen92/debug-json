@@ -1,6 +1,6 @@
 #!groovy
 
-node {
+node('linux') {
 
     def nodeHome = tool name: 'Node-4.4.3', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
     env.PATH = "${nodeHome}/bin:${env.PATH}"
@@ -14,14 +14,14 @@ node {
       checkout scm
 
     stage 'NPM install'
-      sh "npm install"
+      sh 'npm install'
 
     stage 'Linting'
-      sh "npm run lint"
+      sh 'npm run lint'
 
     stage 'Test'
-      sh "npm run test"
+      sh 'npm run test'
 
     stage 'Build'
-      sh "npm run build"
+      sh 'npm run build'
 }
