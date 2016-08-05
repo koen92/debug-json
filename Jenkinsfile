@@ -12,18 +12,18 @@ node('linux') {
     stage 'Checkout'
     checkout scm
 
-    stage 'NPM install'
-    sh 'npm install'
-
-    stage 'Linting'
-    sh 'npm run lint'
-
-    stage 'Test'
-    sh 'npm run test'
-
-    stage 'Build'
-    sh 'npm run build'
-
+//    stage 'NPM install'
+//    sh 'npm install'
+//
+//    stage 'Linting'
+//    sh 'npm run lint'
+//
+//    stage 'Test'
+//    sh 'npm run test'
+//
+//    stage 'Build'
+//    sh 'npm run build'
+//
     stage 'Notify'
     step([$class: 'GitHubCommitStatusSetter'])
 
