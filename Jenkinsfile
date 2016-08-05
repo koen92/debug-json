@@ -1,27 +1,32 @@
 #!groovy
 
 node('linux') {
+    try {
+        env.PATH = "${tool 'Node-4.4.3'}/bin:${env.PATH}"
 
-    def nodeHome = tool name: 'Node-4.4.3', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
-    env.PATH = "${nodeHome}/bin:${env.PATH}"
+        stage 'Show Node & NPM version'
+        sh "node -v"
+        sh "npm -v"
 
-    stage 'Show Node & NPM version'
+        stage 'Checkout'
+        checkout scm
 
-      sh "node -v"
-      sh "npm -v"
+        stage 'NPM install'
+        sh 'npm install'
 
-    stage 'Checkout'
-      checkout scm
+        stage 'Linting'
+        sh 'npm run lint'
 
-    stage 'NPM install'
-      sh 'npm install'
+        stage 'Test'
+        sh 'npm run test'
 
-    stage 'Linting'
-      sh 'npm run lint'
+        stage 'Build'
+        sh 'npm run build'
 
-    stage 'Test'
-      sh 'npm run test'
-
-    stage 'Build'
-      sh 'npm run build'
+        stage 'Notify'
+        slackSend color: 'good', message: "Build Succeeded - ${env.JOB_NAME} ${env.BUILD_NUMBER}  (<${env.BUILD_URL}|Open>)"
+    } catch (err) {
+        stage 'Notify'
+        slackSend color: 'danger', message: "Build Failed - ${env.JOB_NAME} ${env.BUILD_NUMBER}  (<${env.BUILD_URL}|Open>)\n${err}"
+    }
 }
