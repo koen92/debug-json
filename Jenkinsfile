@@ -2,9 +2,9 @@
 
 node('linux') {
     catchError {
-        stage 'Prepare'
+//        stage 'Prepare'
 
-        step([$class: 'GitHubSetCommitStatusBuilder'])
+//        step([$class: 'GitHubSetCommitStatusBuilder'])
         env.PATH = "${tool 'Node-4.4.3'}/bin:${env.PATH}"
 
         stage 'Show Node & NPM version'
@@ -35,5 +35,5 @@ node('linux') {
 
 //    step([$class: 'GitHubCommitStatusSetter'])
 
-    slackSend color: currentBuild.result == 'SUCCESS' ? 'good' : 'danger', message: "Build ${currentBuild.result == 'SUCCESS' ? 'Succeeded' : 'Failed'} - ${env.JOB_NAME} ${env.BUILD_NUMBER}  (<${env.BUILD_URL}|Open>)"
+    slackSend color: currentBuild.result != 'FAILURE' ? 'good' : 'danger', message: "Build ${currentBuild.result != 'FAILURE' ? 'Succeeded' : 'Failed'} - ${env.JOB_NAME} ${env.BUILD_NUMBER}  (<${env.BUILD_URL}|Open>)"
 }
