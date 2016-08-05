@@ -28,5 +28,4 @@ node('linux') {
     step([$class: 'GitHubCommitStatusSetter'])
 
     slackSend color: currentBuild.result == 'SUCCESS' ? 'good' : 'danger', message: "Build ${currentBuild.result == 'SUCCESS' ? 'Succeeded' : 'Failed'} - ${env.JOB_NAME} ${env.BUILD_NUMBER}  (<${env.BUILD_URL}|Open>)"
-
 }
