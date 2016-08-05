@@ -25,7 +25,9 @@ node('linux') {
 //    sh 'npm run build'
 //
     stage 'Notify'
-    step([$class: 'GitHubCommitStatusSetter'])
+    step([$class: 'GitHubCommitNotifier', resultOnFailure: 'FAILURE'])
+
+//    step([$class: 'GitHubCommitStatusSetter'])
 
     slackSend color: currentBuild.result == 'SUCCESS' ? 'good' : 'danger', message: "Build ${currentBuild.result == 'SUCCESS' ? 'Succeeded' : 'Failed'} - ${env.JOB_NAME} ${env.BUILD_NUMBER}  (<${env.BUILD_URL}|Open>)"
 }
