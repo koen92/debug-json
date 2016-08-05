@@ -18,7 +18,7 @@ node('linux') {
     //    sh 'npm install'
     //
         stage 'Linting'
-        error 'WIP'
+//        error 'WIP'
     //    sh 'npm run lint'
     //
         stage 'Test'
@@ -31,7 +31,7 @@ node('linux') {
     stage 'Notify'
     echo "currentBuild.result: ${currentBuild.result}"
     echo "currentBuild: ${currentBuild}"
-    step([$class: 'GitHubCommitNotifier', resultOnFailure: 'FAILURE'])
+    //step([$class: 'GitHubCommitNotifier', resultOnFailure: 'FAILURE'])
 
 //    step([$class: 'GitHubCommitStatusSetter'])
 
