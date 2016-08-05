@@ -2,38 +2,28 @@
 
 node('linux') {
     catchError {
-//        stage 'Prepare'
-
-//        step([$class: 'GitHubSetCommitStatusBuilder'])
+        stage 'Prepare'
         env.PATH = "${tool 'Node-4.4.3'}/bin:${env.PATH}"
 
         stage 'Show Node & NPM version'
-        sh "node -v"
-        sh "npm -v"
+        sh 'node -v'
+        sh 'npm -v'
 
         stage 'Checkout'
         checkout scm
 
         stage 'NPM install'
-    //    sh 'npm install'
-    //
+        sh 'npm install'
+
         stage 'Linting'
-//        error 'WIP'
-    //    sh 'npm run lint'
-    //
+        sh 'npm run lint'
+
         stage 'Test'
-    //    sh 'npm run test'
-    //
+        sh 'npm run test'
+
         stage 'Build'
-    //    sh 'npm run build'
-    //
+        sh 'npm run build'
     }
     stage 'Notify'
-    echo "currentBuild.result: ${currentBuild.result}"
-    echo "currentBuild: ${currentBuild}"
-    //step([$class: 'GitHubCommitNotifier', resultOnFailure: 'FAILURE'])
-
-//    step([$class: 'GitHubCommitStatusSetter'])
-
-    slackSend color: currentBuild.result != 'FAILURE' ? 'good' : 'danger', message: "Build ${currentBuild.result != 'FAILURE' ? 'Succeeded' : 'Failed'} - ${env.JOB_NAME} ${env.BUILD_NUMBER}  (<${env.BUILD_URL}|Open>)"
+    slackSend color: currentBuild.result != 'FAILURE' ? 'good' : 'danger', message: "Build ${currentBuild.result != 'FAILURE' ? 'Success' : 'Failure'} - ${env.JOB_NAME} ${env.BUILD_NUMBER}  (<${env.BUILD_URL}|Open>)"
 }
