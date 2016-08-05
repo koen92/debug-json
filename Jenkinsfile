@@ -12,16 +12,17 @@ node('linux') {
     stage 'Checkout'
     checkout scm
 
-//    stage 'NPM install'
+    stage 'NPM install'
 //    sh 'npm install'
 //
-//    stage 'Linting'
+    stage 'Linting'
+    error 'WIP'
 //    sh 'npm run lint'
 //
-//    stage 'Test'
+    stage 'Test'
 //    sh 'npm run test'
 //
-//    stage 'Build'
+    stage 'Build'
 //    sh 'npm run build'
 //
     stage 'Notify'
