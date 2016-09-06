@@ -27,6 +27,7 @@ node('linux') {
 
         stage 'Pack'
         sh 'npm pack'
+        archiveArtifacts '*.tgz'
     }
     stage 'Notify'
     slackSend color: currentBuild.result != 'FAILURE' ? 'good' : 'danger', message: "<${env.BUILD_URL}|Build for ${env.JOB_NAME} by ${env.BUILD_USER_ID} has ${currentBuild.result != 'FAILURE' ? 'succeeded' : 'failed'}>"
