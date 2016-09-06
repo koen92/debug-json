@@ -1,6 +1,6 @@
 {
   "name": "debug-json",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Format debug output in json",
   "main": "lib/index.js",
   "scripts": {
